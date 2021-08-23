@@ -1,0 +1,119 @@
+taskKey="com.codegym.task.task32.task3209.big24"\n\nHTML Editor (part 24)
+
+
+Your HTML editor is ready!
+You learned how to:
+- Create applications with a graphical interface.
+- Work with dialog boxes.
+- Use classes from the Swing library.
+- Implement interaction between program components with the help of events, listeners,
+and actions.
+- You strengthened your knowledge of the MVC pattern.
+
+Here are some things you might improve in the editor:
+- Add a toolbar that replicates the functionality of the menu.
+- Add highlighting of HTML tags on the second tab.
+- Add the ability to load a document from the Internet.
+- Expand the editor&#39;s capabilities (insert images, links, etc.)
+
+Congratulations! Keep it up!
+
+
+Требования:
+1.	The HTML editor is ready!
+
+
+HTML Editor (part 24)
+
+
+23.1.	Let&#39;s write the saveDocument() method for saving the current file. The method should
+work the same as saveDocumentAs(), but not ask the user for a file. Instead, it should use
+currentFile. If currentFile is null, then call the saveDocumentAs() method.
+23.2.	It&#39;s time to implement the openDocument() method. The method should work
+like the part of the saveDocumentAs() method that is responsible for file selection.
+Hint: Pay attention to the name of the method used to display the dialog.
+When a file is selected, you must:
+23.2.1.	Set the new value of currentFile.
+23.2.2.	Reset the document.
+23.2.3.	Set the file name as the title on the view.
+23.2.4.	Use currentFile to create a FileReader.
+23.2.5.	Use an HTMLEditorKit object to read data from the FileReader into the document
+field.
+23.2.6.	Reset the edits (call the view&#39;s resetUndo method).
+23.2.7.	If exceptions occur, log them but don&#39;t throw them upward.
+Check that the Save and Open menu items work.
+
+
+
+HTML Editor (part 24)
+
+
+In the controller, let&#39;s implement the saveDocumentAs() method for saving the file under a new name.
+The implementation should:
+22.1.	Switch the view to the HTML tab.
+22.2.	Create a new JFileChooser object.
+22.3.	Set an HTMLFileFilter object as its filter.
+22.4.	Show the &quot;Save File&quot; file chooser dialog.
+22.5.	If the user confirms the file selection:
+22.5.1.	Save the selected file in the currentFile field.
+22.5.2.	Set the file name as the window title on the view.
+22.5.3.	Create a FileWriter based on currentFile.
+22.5.4.	Copy the data from document to the FileWriter object by analogy with what
+we did in the getPlainText() method.
+22.6.	The method must not throw exceptions.
+Check the Save as... menu item.
+
+
+
+HTML Editor (part 24)
+
+
+To open and save the file, we&#39;ll use JFileChooser from the swing library.
+Objects of this type support filters that inherit FileFilter. Now we&#39;ll write
+our own filter:
+21.1.	Create a public HTMLFileFilter class that inherits FileFilter.
+21.2.	We want the file selection window to display only folders and HTML/HTM files.
+Override the accept(File f) method so that it returns true if the passed file is a
+directory or its name ends with &quot;.html&quot; or &quot;.htm&quot; (case insensitive).
+21.3.	To make the description of available file types in the file selection window
+&quot;HTML and HTM files&quot;, override the getDescription() method accordingly.
+
+
+
+HTML Editor (part 24)
+
+
+20.1.	Implement the createNewDocument() method in the controller. It
+must:
+20.1.1.	Select the HTML tab on the view.
+20.1.2.	Reset the current document.
+20.1.3.	Set a new window title, e.g. &quot;HTML editor&quot;. Use the
+setTitle() method, which is inherited by our view.
+20.1.4.	Reset the edits in the undo manager. Use the view&#39;s resetUndo method.
+20.1.5. Set currentFile to null.
+20.2.	Implement the controller&#39;s init() method. It should just call the method
+that creates a new document.
+Check that the New menu item works.
+
+
+
+HTML Editor (part 24)
+
+
+Implement the actionPerformed(ActionEvent actionEvent) method on the view. This method is
+inherited from the ActionListener interface and will be called upon selection of menu items
+that our view has been added to as an event listener.
+19.1.	Get a command from the event using the getActionCommand() method(). It will
+be an ordinary string. You can use this string to understand which menu item created this
+event.
+19.2.	If it is the &quot;New&quot; command, call the controller&#39;s createNewDocument() method. From here on,
+if the controller doesn&#39;t have the required method yet, create a stub.
+19.3.	If it is the &quot;Open&quot; command, call the openDocument() method.
+19.4.	If &quot;Save&quot;, then call saveDocument().
+19.5.	If &quot;Save as...&quot;, saveDocumentAs().
+19.6.	If &quot;Exit&quot;, exit().
+19.7.	If &quot;About&quot;, then call the showAbout() method on the view.
+Check that the Exit and About menu items now work.
+
+
+
